@@ -32,3 +32,6 @@ replay_pid*
 /fabric/run
 /neoforge/.gradle
 /gradle
+/common/src/main/resources/assets/groovyengine/mappings
+/neoforge/run
+/neoforge/build

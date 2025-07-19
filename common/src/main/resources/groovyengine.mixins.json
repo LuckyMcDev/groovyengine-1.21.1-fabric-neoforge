@@ -4,8 +4,12 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
+    "imgui.MinecraftClientMixin",
+    "ExampleMixin",
+    "rendering.EntityRendererMixin"
   ],
   "mixins": [
+
   ],
   "injectors": {
     "defaultRequire": 1

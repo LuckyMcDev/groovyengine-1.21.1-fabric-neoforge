@@ -38,6 +38,7 @@ dependencies {
     implementation(groovyLibs)
 
     include(implementation "io.github.spair:imgui-java-binding:${rootProject.imgui_version}")
+    include(implementation "io.github.spair:imgui-java-natives-windows:${rootProject.imgui_version}")
     include(implementation "io.github.spair:imgui-java-lwjgl3:${rootProject.imgui_version}") {
         exclude group: 'org.lwjgl'
     }

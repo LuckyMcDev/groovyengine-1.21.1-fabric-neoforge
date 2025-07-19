@@ -43,14 +43,13 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     // Add the imgui-java-binding dependency
-    implementation "io.github.spair:imgui-java-binding:${rootProject.imgui_version}"
-
-    // Add the imgui-java-lwjgl3 dependency with exclusion
-    implementation("io.github.spair:imgui-java-lwjgl3:${rootProject.imgui_version}") {
+    include (implementation "io.github.spair:imgui-java-binding:${rootProject.imgui_version}")
+    include (implementation "io.github.spair:imgui-java-natives-windows:${rootProject.imgui_version}")
+    include (implementation("io.github.spair:imgui-java-lwjgl3:${rootProject.imgui_version}") {
         exclude group: 'org.lwjgl'
-    }
+    })
 
-    implementation(groovyLibs)
+    shadowBundle(groovyLibs)
 }
 
 processResources {
