@@ -2,19 +2,17 @@ package dev.perxenic.groovyengine.core.script.engine;
 
 import dev.architectury.platform.Platform;
 import dev.perxenic.groovyengine.GroovyEngine;
+import dev.perxenic.groovyengine.api.addon.ShellBindingEvents;
 import dev.perxenic.groovyengine.core.builders.BlockBuilder;
 import dev.perxenic.groovyengine.core.builders.ItemBuilder;
 import dev.perxenic.groovyengine.core.builders.RecipeBuilder;
 import dev.perxenic.groovyengine.core.builders.particle.GroovyParticleTypes;
 import dev.perxenic.groovyengine.core.builders.particle.ParticleBuilder;
 import dev.perxenic.groovyengine.core.events.*;
-import dev.perxenic.groovyengine.scripting.gui.GuiBinding;
-import dev.perxenic.groovyengine.scripting.input.KeysBinding;
 import dev.perxenic.groovyengine.scripting.utils.Globals;
 import dev.perxenic.groovyengine.scripting.utils.GroovyEngineScriptUtils;
 import dev.perxenic.groovyengine.scripting.utils.GroovyLogger;
 import dev.perxenic.groovyengine.util.RegistryHelper;
-import dev.perxenic.groovyengine.api.addon.ShellBindingEvents;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyShell;
@@ -45,12 +43,6 @@ public class ScriptShellFactory {
         binding.setVariable("UUID", UUID.class);
         binding.setVariable("Duration", Duration.class);
         binding.setVariable("Math", Math.class);
-
-        if (Platform.getEnv() == EnvType.CLIENT) {
-            binding.setVariable("Gui", GuiBinding.class);
-            binding.setVariable("ImGui", ImGui.class);
-            binding.setVariable("Keys", KeysBinding.class);
-        }
 
         // Event classes
         binding.setVariable("ConnectionEvents", ConnectionEvents.class);

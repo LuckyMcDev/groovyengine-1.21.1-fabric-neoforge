@@ -4,7 +4,6 @@ import dev.perxenic.groovyengine.gui.editor.window.ConsoleWindow;
 import dev.perxenic.groovyengine.gui.editor.window.DocsWindow;
 import dev.perxenic.groovyengine.gui.editor.window.EditorWindow;
 import dev.perxenic.groovyengine.gui.imgui.ImGuiImpl;
-import dev.perxenic.groovyengine.scripting.gui.GuiRegistry;
 import imgui.ImGui;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,8 +20,6 @@ public class MainEditorImGui {
             ImGui.pushFont(ImGuiImpl.getDefaultFont());
 
             renderMenuBar();
-
-            GuiRegistry.renderAll();
 
             if (showConsole) ConsoleWindow.render();
             if (showDocs) DocsWindow.render();

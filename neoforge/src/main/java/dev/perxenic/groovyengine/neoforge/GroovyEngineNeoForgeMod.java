@@ -5,8 +5,8 @@ import net.neoforged.fml.common.Mod;
 import dev.perxenic.groovyengine.GroovyEngine;
 
 @Mod(GroovyEngine.MODID)
-public final class GroovyEngineNeoForge {
-    public GroovyEngineNeoForge() {
+public final class GroovyEngineNeoForgeMod {
+    public GroovyEngineNeoForgeMod() {
         // Run our common setup.
         GroovyEngine.init();
     }

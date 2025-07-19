@@ -1,8 +1,7 @@
 package dev.perxenic.groovyengine;
 
-import dev.perxenic.groovyengine.api.platform.PlatformService;
-import dev.perxenic.groovyengine.api.scripting.ScriptEngine;
-import dev.perxenic.groovyengine.api.platform.ResourceServices;
+import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.registry.ReloadListenerRegistry;
 import dev.perxenic.groovyengine.util.logging.LogCapture;
 import dev.perxenic.groovyengine.datagen.OpenloaderConfigPatcher;
 import dev.perxenic.groovyengine.datagen.generator.GroovyEnginePackRootGenerator;
@@ -10,11 +9,17 @@ import dev.perxenic.groovyengine.datagen.generator.ResourcepackGenerator;
 import dev.perxenic.groovyengine.core.script.engine.GroovyScriptManager;
 import dev.perxenic.groovyengine.util.mapping.MappingResolver;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceReload;
+import net.minecraft.resource.ResourceReloader;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.profiler.Profiler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public final class GroovyEngine {
     public static final String MODID = "groovyengine";
@@ -42,13 +47,5 @@ public final class GroovyEngine {
 
         LOGGER.info("Loading Scripts");
         GroovyScriptManager.initialize();
-        GroovyScriptManager.reloadScripts();
-
-    }
-
-
-    private void onDataPackReloadStart(MinecraftServer server, ResourceManager resourceManager) {
-        LOGGER.info("GroovyEngine: Scripts reload is starting");
-        GroovyScriptManager.reloadScripts();
     }
 }

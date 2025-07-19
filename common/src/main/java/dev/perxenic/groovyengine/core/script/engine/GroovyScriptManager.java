@@ -17,19 +17,29 @@ import java.util.stream.Stream;
 public class GroovyScriptManager {
     private static final Path ROOT    = Platform.getGameFolder().resolve("GroovyEngine");
     private static final Path SCRIPTS = ROOT.resolve("scripts");
-
-    // moved out of factory so we can reassign
     private static GroovyShell shell;
 
     public static void initialize() {
-        createScriptFolders();
-        shell = ScriptShellFactory.createSharedShell();  // fresh shell + binding
-        loadAllScripts();
+        try {
+            createScriptFolders();
+            shell = ScriptShellFactory.createSharedShell();
+            loadAllScripts();
+        } catch (Exception e) {
+            GroovyEngine.LOGGER.error("[GroovyEngine] Error during initialization", e);
+        }
     }
 
     public static void reloadScripts() {
-        shell = ScriptShellFactory.createSharedShell();  // rebuild shell & binding
-        loadAllScripts();
+        try {
+            if (shell != null) {
+                // Perform any necessary cleanup on the old shell
+                // shell.getClassLoader().clearCache();
+            }
+            shell = ScriptShellFactory.createSharedShell();
+            loadAllScripts();
+        } catch (Exception e) {
+            GroovyEngine.LOGGER.error("[GroovyEngine] Error during script reload", e);
+        }
     }
 
     private static void createScriptFolders() {
@@ -43,10 +53,14 @@ public class GroovyScriptManager {
     }
 
     private static void loadAllScripts() {
-        EnvType env = Platform.getEnv();
-        runScriptsIn("common");
-        if (env == EnvType.CLIENT) runScriptsIn("client");
-        else                       runScriptsIn("server");
+        try {
+            EnvType env = Platform.getEnv();
+            runScriptsIn("common");
+            if (env == EnvType.CLIENT) runScriptsIn("client");
+            else                       runScriptsIn("server");
+        } catch (Exception e) {
+            GroovyEngine.LOGGER.error("[GroovyEngine] Error loading all scripts", e);
+        }
     }
 
     private static void runScriptsIn(String subfolder) {
@@ -54,7 +68,6 @@ public class GroovyScriptManager {
         if (!Files.exists(folder)) return;
 
         try (Stream<Path> paths = Files.walk(folder)) {
-            // filter groovy files that are NOT disabled
             List<Path> scripts = paths
                     .filter(p -> p.toString().endsWith(".groovy"))
                     .filter(p -> !ScriptMetadata.isDisabled(p))
@@ -62,21 +75,26 @@ public class GroovyScriptManager {
 
             scripts.sort(Comparator.comparingInt(ScriptMetadata::getPriority));
 
-            // evaluate scripts in order
-            scripts.forEach(GroovyScriptManager::evaluateScript);
+            for (Path script : scripts) {
+                try {
+                    evaluateScript(script);
+                } catch (Exception e) {
+                    GroovyEngine.LOGGER.error("[GroovyEngine] Error evaluating script: " + script.getFileName(), e);
+                }
+            }
         } catch (IOException e) {
-            GroovyEngine.LOGGER.error("[GroovyEngine] Error walking scripts folder", e);
+            GroovyEngine.LOGGER.error("[GroovyEngine] Error walking scripts folder: " + subfolder, e);
         }
     }
 
-
-    private static void evaluateScript(Path script) {
+    private static void evaluateScript(Path script) throws IOException {
         GroovyEngine.LOGGER.info("[GroovyEngine] Evaluating " + script.getFileName());
         try {
             Script compiledScript = shell.parse(script.toFile());
             compiledScript.run();
         } catch (Exception ex) {
             GroovyEngine.LOGGER.error("[GroovyEngine] Script error in " + script.getFileName(), ex);
+            throw ex;
         }
     }
 }
