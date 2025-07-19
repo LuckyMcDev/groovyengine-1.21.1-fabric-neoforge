@@ -14,6 +14,6 @@ public interface ScriptEngine {
     void executeScript(String scriptContent);
 
     static ScriptEngine getInstance() {
-        throw new UnsupportedOperationException("Implementation provided by platform");
+        return null;
     }
 }

@@ -1,5 +1,8 @@
 package dev.perxenic.groovyengine;
 
+import dev.perxenic.groovyengine.api.platform.PlatformService;
+import dev.perxenic.groovyengine.api.scripting.ScriptEngine;
+import dev.perxenic.groovyengine.api.platform.ResourceServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +12,6 @@ public final class GroovyEngine {
     public static final String MODID = "groovyengine";
     private static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-    public void init() {
-
+    public static void init() {
     }
 }

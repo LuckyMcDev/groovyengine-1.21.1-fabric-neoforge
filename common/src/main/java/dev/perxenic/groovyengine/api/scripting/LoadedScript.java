@@ -7,11 +7,16 @@ import java.time.Instant;
  * Represents a loaded script
  */
 public interface LoadedScript {
+    String getName();
+
     String getId();
     Path getPath();
     ScriptMetadata getMetadata();
     ScriptState getState();
-    Instant getLoadTime();
+
+    Object getResult();
+
+    long getLoadTime();
 
     enum ScriptState {
         LOADED,
