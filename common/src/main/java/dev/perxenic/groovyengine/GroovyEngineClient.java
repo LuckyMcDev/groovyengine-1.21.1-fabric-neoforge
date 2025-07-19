@@ -2,10 +2,10 @@ package dev.perxenic.groovyengine;
 
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
-import dev.perxenic.groovyengine.editor.core.MainEditorImGui;
-import dev.perxenic.groovyengine.editor.core.MainEditorScreen;
-import dev.perxenic.groovyengine.input.GroovyKeybinds;
-import dev.perxenic.groovyengine.packs.structure.DatapackGenerator;
+import dev.perxenic.groovyengine.gui.editor.component.MainEditorImGui;
+import dev.perxenic.groovyengine.gui.screen.MainEditorScreen;
+import dev.perxenic.groovyengine.util.input.GroovyKeybinds;
+import dev.perxenic.groovyengine.datagen.generator.DatapackGenerator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;

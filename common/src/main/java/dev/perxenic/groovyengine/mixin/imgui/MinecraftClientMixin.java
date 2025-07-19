@@ -1,6 +1,6 @@
 package dev.perxenic.groovyengine.mixin.imgui;
 
-import dev.perxenic.groovyengine.imgui.ImGuiImpl;
+import dev.perxenic.groovyengine.gui.imgui.ImGuiImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.util.Window;

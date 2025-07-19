@@ -3,11 +3,11 @@ package dev.perxenic.groovyengine;
 import dev.perxenic.groovyengine.api.platform.PlatformService;
 import dev.perxenic.groovyengine.api.scripting.ScriptEngine;
 import dev.perxenic.groovyengine.api.platform.ResourceServices;
-import dev.perxenic.groovyengine.logging.LogCapture;
-import dev.perxenic.groovyengine.packs.OpenloaderConfigPatcher;
-import dev.perxenic.groovyengine.packs.structure.GroovyEnginePackRootGenerator;
-import dev.perxenic.groovyengine.packs.structure.ResourcepackGenerator;
-import dev.perxenic.groovyengine.scripting.core.GroovyScriptManager;
+import dev.perxenic.groovyengine.util.logging.LogCapture;
+import dev.perxenic.groovyengine.datagen.OpenloaderConfigPatcher;
+import dev.perxenic.groovyengine.datagen.generator.GroovyEnginePackRootGenerator;
+import dev.perxenic.groovyengine.datagen.generator.ResourcepackGenerator;
+import dev.perxenic.groovyengine.core.script.engine.GroovyScriptManager;
 import dev.perxenic.groovyengine.util.mapping.MappingResolver;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.server.MinecraftServer;
@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 public final class GroovyEngine {
     public static final String MODID = "groovyengine";
